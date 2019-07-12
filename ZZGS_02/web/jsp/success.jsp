@@ -53,7 +53,7 @@
         <th colspan="2">操作</th>
     </tr>
     </thead>
-    <c:forEach items="${list}" var="user">
+    <c:forEach items="${pb.list}" var="user">
       <tr>
           <td>${user.id}</td>
           <td>${user.name}</td>
@@ -68,5 +68,45 @@
     </c:forEach>
 </table>
 </div>
+<nav aria-label="Page navigation" style="text-align: center;">
+    <ul class="pagination">
+    <c:if test="${pb.currentpage==1}">
+        <li class="disabled">
+            <a href="${pageContext.request.contextPath}/findUserByPageServlet?currentpage=${pb.currentpage}&rows=5" aria-label="Previous">
+                <span aria-hidden="true">上一页</span>
+            </a>
+        </li>
+    </c:if>
+    <c:if test="${pb.currentpage!=1}">
+        <li>
+            <a href="${pageContext.request.contextPath}/findUserByPageServlet?currentpage=${pb.currentpage-1}&rows=5" aria-label="Previous">
+                <span aria-hidden="true">上一页</span>
+            </a>
+        </li>
+    </c:if>
+        <c:forEach begin="1" end="${pb.totalpage}" var="i">
+            <c:if test="${pb.currentpage == i}">
+                <li class="active"><a href="${pageContext.request.contextPath}/findUserByPageServlet?currentpage=${i}&rows=5">${i}</a></li>
+            </c:if>
+            <c:if test="${pb.currentpage != i}">
+                <li><a href="${pageContext.request.contextPath}/findUserByPageServlet?currentpage=${i}&rows=5">${i}</a></li>
+            </c:if>
+        </c:forEach>
+     <c:if test="${pb.currentpage == pb.totalpage}">
+            <li class="disabled">
+                <a href="${pageContext.request.contextPath}/findUserByPageServlet?currentpage=${pb.currentpage}&rows=5" aria-label="Next">
+                    <span aria-hidden="true">下一页</span>
+                </a>
+            </li>
+     </c:if>
+     <c:if test="${pb.currentpage!=pb.totalpage}">
+            <li>
+                <a href="${pageContext.request.contextPath}/findUserByPageServlet?currentpage=${pb.currentpage+1}&rows=5" aria-label="Next">
+                    <span aria-hidden="true">下一页</span>
+                </a>
+            </li>
+        </c:if>
+    </ul>
+</nav>
 </body>
 </html>

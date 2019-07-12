@@ -5,12 +5,12 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-@WebFilter("/userServlet")
+@WebFilter("/findUserByPageServlet")
 public class LoginFilter implements Filter {
 
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
         //0.强制转换
-        HttpServletRequest request =(HttpServletRequest)req;
+        HttpServletRequest request = (HttpServletRequest) req;
         //1.获取资源请求路径
         String uri =request.getRequestURI();
         //2.判断是否包含登录相关的资源

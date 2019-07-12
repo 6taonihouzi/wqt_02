@@ -46,7 +46,7 @@ public class loginServlet extends HttpServlet {
             //将用户存入session
             session.setAttribute("login",successlogin);
             //跳转页面
-            response.sendRedirect(request.getContextPath()+"/userServlet");
+            response.sendRedirect(request.getContextPath()+"/findUserByPageServlet");
         }
         else {
             //登录失败

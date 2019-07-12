@@ -18,7 +18,7 @@ public class deleteServlet extends HttpServlet {
         UserService userService =new UserService();
         userService.delete(Integer.parseInt(id));
         //3.调转页面
-       response.sendRedirect(request.getContextPath()+"/userServlet");
+       response.sendRedirect(request.getContextPath()+"/findUserByPageServlet");
        //request.getRequestDispatcher("/userServlet").forward(request,response);
     }
 

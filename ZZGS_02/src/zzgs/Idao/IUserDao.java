@@ -17,4 +17,8 @@ public interface IUserDao {
     User getdateById(int id);
     //修改数据
     void update(User user);
+    //查询总记录数
+    int findtotalCount();
+   //分页查询每页数据
+    List<User> findByPage(int start, int rows);
 }

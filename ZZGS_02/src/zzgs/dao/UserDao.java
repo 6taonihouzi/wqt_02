@@ -209,5 +209,81 @@ public class UserDao implements IUserDao {
             }
         }
     }
-
+    //获取总记录数
+    @Override
+    public int findtotalCount() {
+        try {
+            conn = sqlHelper.getConnection();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String sql = "select count(*) from userinfo";
+        int totalCount = 0;
+        try {
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while(rs.next())
+            {
+                totalCount = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                if(rs!=null){
+                    rs.close();
+                }
+                if(ps!=null){
+                    ps.close();
+                }
+                sqlHelper.closeConn(conn);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return totalCount;
+    }
+    //返回每页的总记录数
+    @Override
+    public List<User> findByPage(int start, int rows) {
+        List<User> list = new ArrayList<User>();
+        try {
+            conn = sqlHelper.getConnection();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String sql = "select * from userinfo limit ?,?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1,start);
+            ps.setInt(2,rows);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                User user = new User();
+                user.setId(rs.getInt(1));
+                user.setName(rs.getString(2));
+                user.setSex(rs.getString(3));
+                user.setAge(rs.getInt(4));
+                user.setPalce(rs.getString(5));
+                user.setCtrate_time(rs.getTimestamp(6));
+                user.setModify_time(rs.getTimestamp(7));
+                list.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                if(rs!=null){
+                    rs.close();
+                }
+                if(ps!=null){
+                    ps.close();
+                }
+                sqlHelper.closeConn(conn);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return list;
+    }
 }

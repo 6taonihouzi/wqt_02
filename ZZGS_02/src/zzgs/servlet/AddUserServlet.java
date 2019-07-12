@@ -43,7 +43,7 @@ public class AddUserServlet extends HttpServlet {
         UserService service = new UserService();
         service.addUser(user);
         //5.跳转到UserServlet
-        request.getRequestDispatcher("/userServlet").forward(request,response);
+        request.getRequestDispatcher("/findUserByPageServlet").forward(request,response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
